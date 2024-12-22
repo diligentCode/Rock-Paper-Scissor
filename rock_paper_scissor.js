@@ -17,3 +17,31 @@ function calHumanChoice() {
     calHumanChoice();
   }
 }
+
+//Caclculate computer chpice
+//For that we will generate a random number
+function calComputerChoice() {
+  //Store random number
+  let temp = Math.random();
+
+  //calculate choice based on random number
+  if (temp == 1) {
+    return 1;
+  } else if (temp < 1.5) {
+    return 2;
+  } else {
+    return 3;
+  }
+}
+
+//Now Based on the number of the choice we might need to
+//decide if it rock or paper or scissor
+function calChoice(choice) {
+  if (choice == 1) {
+    return "Rock";
+  } else if (choice == 2) {
+    return "Paper";
+  } else {
+    return "Scissor";
+  }
+}
