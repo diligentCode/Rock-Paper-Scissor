@@ -56,6 +56,60 @@ function playRound(roundNo) {
   let computerChoice = calComputerChoice();
   console.log("Your choice is:-" + calChoice(humnaChoice));
   console.log("Computer choice is:-" + calChoice(computerChoice));
-  let winner = calWinner(humnaChoice, computerChoice);
-  console.log("Winner is !! " + winner);
+  let winner = calWinner(humnaChoice, computerChoice, roundNo);
+  console.log("Winner of this round is:- " + winner);
+}
+
+// cAlculate winner based o choices
+function calWinner(humnaChoice, computerChoice, roundNo) {
+  //humanChoice & computerChoice
+
+  //If both have same choice display and replau the round
+  if (humnaChoice == computerChoice) {
+    console.log("Bothe have same choices /n Play Again !");
+    playRound(roundNo);
+  }
+
+  //1] human ROck
+  if (humnaChoice == 1) {
+    //Rock Paper
+    if (computerChoice == 2) {
+      //Computer wins
+      computerWinCount++;
+      return "Computer";
+      //paper & scissor
+    } else if (computerChoice == 3) {
+      //Human wins
+      humanWinCount++;
+      return "Human";
+    }
+    //Paper
+  } else if (humnaChoice == 2) {
+    //paper & rock
+    if (computerChoice == 1) {
+      //Human wins
+      humanWinCount++;
+      return "Human";
+      //paper & scissor
+    } else if (computerChoice == 3) {
+      //Computer wins
+      computerWinCount++;
+      return "Computer";
+    }
+    //Scissor
+  } else {
+    //Scissor & Rock
+    if (computerChoice == 1) {
+      //Computer WIns
+      computerWinCount++;
+      return "Computer";
+      //scissor & paper
+    } else if (computerChoice == 2) {
+      //Humans Wins
+      humanWinCount++;
+      return "Human";
+    }
+  }
+  {
+  }
 }
