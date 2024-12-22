@@ -45,3 +45,17 @@ function calChoice(choice) {
     return "Scissor";
   }
 }
+
+//A function to play a single round
+//playRound is the single round of the game
+//It has a single parameter that is round number
+function playRound(roundNo) {
+  //Welcome in the round
+  console.log("Welcome to Round number:" + roundNo);
+  let humnaChoice = calHumanChoice();
+  let computerChoice = calComputerChoice();
+  console.log("Your choice is:-" + calChoice(humnaChoice));
+  console.log("Computer choice is:-" + calChoice(computerChoice));
+  let winner = calWinner(humnaChoice, computerChoice);
+  console.log("Winner is !! " + winner);
+}
