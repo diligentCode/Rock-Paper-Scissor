@@ -6,7 +6,7 @@ let computerWinCount = 0;
 
 //Take Inut of Human Chouce
 function calHumanChoice() {
-  let choice = pasceInt(
+  let choice = parseInt(
     prompt("Enter your Choice :-\n 1]Rock 2]Paper 3]Scissor "),
     10
   );
@@ -25,9 +25,9 @@ function calComputerChoice() {
   let temp = Math.random();
 
   //calculate choice based on random number
-  if (temp == 1) {
+  if (temp == 0) {
     return 1;
-  } else if (temp < 1.5) {
+  } else if (temp < 0.5) {
     return 2;
   } else {
     return 3;
@@ -57,17 +57,26 @@ function playRound(roundNo) {
   console.log("Your choice is:-" + calChoice(humnaChoice));
   console.log("Computer choice is:-" + calChoice(computerChoice));
   let winner = calWinner(humnaChoice, computerChoice, roundNo);
-  console.log("Winner of this round is:- " + winner);
+
+  //Check if there is a winner or not
+  if (winner == undefined) {
+    //play this round again
+    playRound(roundNo);
+  } else {
+    console.log("Winner of this round is:- " + winner);
+    console.log("Total Your Wins:-" + humanWinCount);
+    console.log("Total Computer Wins:-" + computerWinCount);
+  }
 }
 
 // cAlculate winner based o choices
-function calWinner(humnaChoice, computerChoice, roundNo) {
+function calWinner(humnaChoice, computerChoice) {
   //humanChoice & computerChoice
 
   //If both have same choice display and replau the round
   if (humnaChoice == computerChoice) {
-    console.log("Bothe have same choices /n Play Again !");
-    playRound(roundNo);
+    console.log("Both have same choices \n Play Again !");
+    return;
   }
 
   //1] human ROck
@@ -81,7 +90,7 @@ function calWinner(humnaChoice, computerChoice, roundNo) {
     } else if (computerChoice == 3) {
       //Human wins
       humanWinCount++;
-      return "Human";
+      return "You";
     }
     //Paper
   } else if (humnaChoice == 2) {
@@ -89,7 +98,7 @@ function calWinner(humnaChoice, computerChoice, roundNo) {
     if (computerChoice == 1) {
       //Human wins
       humanWinCount++;
-      return "Human";
+      return "You";
       //paper & scissor
     } else if (computerChoice == 3) {
       //Computer wins
@@ -107,9 +116,34 @@ function calWinner(humnaChoice, computerChoice, roundNo) {
     } else if (computerChoice == 2) {
       //Humans Wins
       humanWinCount++;
-      return "Human";
+      return "You";
     }
   }
   {
   }
 }
+
+//playGame function which will manage the whole game
+function playGame() {
+  //We will play 5 rounds
+  for (let i = 1; i <= 5; i++) {
+    //Each round call playRound
+    let roundNo = i;
+    playRound(roundNo);
+  }
+  //After playing 5 round let decide overall winner
+  console.log("This game is over !!");
+  console.log("And the winner of this game is!!");
+  if (humanWinCount > computerWinCount) {
+    console.log("You !!");
+  } else {
+    console.log("Computer !!");
+  }
+  let playChoice = prompt("Do You want to play again? \n 1]Yes 2]No");
+  if (playChoice == 1) {
+    playGame();
+  }
+}
+
+//Lets call the function
+playGame();
