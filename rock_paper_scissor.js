@@ -49,19 +49,18 @@ function calChoice(choice) {
 //A function to play a single round
 //playRound is the single round of the game
 //It has a single parameter that is round number
-function playRound(roundNo) {
+function playRound() {
   //Welcome in the round
-  console.log("Welcome to Round number:" + roundNo);
   let humnaChoice = calHumanChoice();
   let computerChoice = calComputerChoice();
   console.log("Your choice is:-" + calChoice(humnaChoice));
   console.log("Computer choice is:-" + calChoice(computerChoice));
-  let winner = calWinner(humnaChoice, computerChoice, roundNo);
+  let winner = calWinner(humnaChoice, computerChoice);
 
   //Check if there is a winner or not
   if (winner == undefined) {
     //play this round again
-    playRound(roundNo);
+    playRound();
   } else {
     console.log("Winner of this round is:- " + winner);
     console.log("Total Your Wins:-" + humanWinCount);
@@ -125,12 +124,8 @@ function calWinner(humnaChoice, computerChoice) {
 
 //playGame function which will manage the whole game
 function playGame() {
-  //We will play 5 rounds
-  for (let i = 1; i <= 5; i++) {
-    //Each round call playRound
-    let roundNo = i;
-    playRound(roundNo);
-  }
+  playRound();
+
   //After playing 5 round let decide overall winner
   console.log("This game is over !!");
   console.log("And the winner of this game is!!");
