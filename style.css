@@ -7,7 +7,7 @@
 #player-board {
   text-align: center;
   width: 500px;
-  height: 500px;
+  height: 350px;
 }
 
 /* Structuring display */
@@ -19,5 +19,17 @@
 }
 .left-display,
 .right-display {
-  display: flex;
+  flex: 1;
+}
+
+/* structuring contoll board */
+.console {
+  height: 200px;
+  margin-top: 50px;
+}
+
+button {
+  width: 100px;
+  height: 50px;
+  margin-left: 20px;
 }
