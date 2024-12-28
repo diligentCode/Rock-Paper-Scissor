@@ -11,3 +11,13 @@
 }
 
 /* Structuring display */
+.display {
+  display: flex;
+  height: 100px;
+  justify-content: center;
+  gap: 15px;
+}
+.left-display,
+.right-display {
+  display: flex;
+}
