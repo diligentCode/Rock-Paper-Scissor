@@ -1,0 +1,13 @@
+/* Just to check structuring */
+* {
+  border: 1px solid red;
+}
+
+/* Structuring player-board */
+#player-board {
+  text-align: center;
+  width: 500px;
+  height: 500px;
+}
+
+/* Structuring display */
