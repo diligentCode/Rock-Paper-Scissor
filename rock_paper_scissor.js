@@ -1,143 +1,134 @@
-//2 Variables to track the number of wins
+// Variables to track wins
 let humanWinCount = 0;
 let computerWinCount = 0;
+let humanChoice = null;
 
-//We decided 1-Rock , 2-Paper , 3-Scissor
+// Selecting elements
+const display = document.querySelector(".display");
+const playButton = document.querySelector(".play-button");
+const leftDisplay = document.querySelector(".left-display");
+const rightDisplay = document.querySelector(".right-display");
+const endButton = document.querySelector(".end-button");
+const resetButton = document.querySelector(".reset-button");
+const chooseButtons = document.querySelector(".choose-buttons");
 
-//Take Inut of Human Chouce
-function calHumanChoice() {
-  let choice = parseInt(
-    prompt("Enter your Choice :-\n 1]Rock 2]Paper 3]Scissor "),
-    10
-  );
-  if (choice == 1 || choice == 2 || choice == 3) {
-    return choice;
-  } else {
-    console.log("Invalid Choice , Enter Again");
-    calHumanChoice();
-  }
+// Function to clear specific parts of the display
+function clearScreen() {
+  leftDisplay.textContent = "";
+  rightDisplay.textContent = "";
 }
 
-//Caclculate computer chpice
-//For that we will generate a random number
+// Function to calculate the computer's choice
 function calComputerChoice() {
-  //Store random number
-  let temp = Math.random();
-
-  //calculate choice based on random number
-  if (temp == 0) {
-    return 1;
-  } else if (temp < 0.5) {
-    return 2;
+  const random = Math.random();
+  if (random < 0.33) {
+    return "rock-button";
+  } else if (random < 0.66) {
+    return "paper-button";
   } else {
-    return 3;
+    return "scissor-button";
   }
 }
 
-//Now Based on the number of the choice we might need to
-//decide if it rock or paper or scissor
+// Function to map button class names to readable choices
 function calChoice(choice) {
-  if (choice == 1) {
+  if (choice === "rock-button") {
     return "Rock";
-  } else if (choice == 2) {
+  } else if (choice === "paper-button") {
     return "Paper";
-  } else {
+  } else if (choice === "scissor-button") {
     return "Scissor";
   }
+  return "Invalid";
 }
 
-//A function to play a single round
-//playRound is the single round of the game
-//It has a single parameter that is round number
-function playRound() {
-  //Welcome in the round
-  let humanChoice = calHumanChoice();
-  let computerChoice = calComputerChoice();
-  console.log("Your choice is:-" + calChoice(humanChoice));
-  console.log("Computer choice is:-" + calChoice(computerChoice));
-  let winner = calWinner(humanChoice, computerChoice);
-
-  //Check if there is a winner or not
-  if (winner == undefined) {
-    //play this round again
-    playRound();
+// Function to determine the winner of a round
+function calWinner(humanChoice, computerChoice) {
+  if (humanChoice === computerChoice) {
+    return "Tie";
+  }
+  if (
+    (humanChoice === "rock-button" && computerChoice === "scissor-button") ||
+    (humanChoice === "paper-button" && computerChoice === "rock-button") ||
+    (humanChoice === "scissor-button" && computerChoice === "paper-button")
+  ) {
+    humanWinCount++;
+    return "You";
   } else {
-    console.log("Winner of this round is:- " + winner);
-    console.log("Total Your Wins:-" + humanWinCount);
-    console.log("Total Computer Wins:-" + computerWinCount);
+    computerWinCount++;
+    return "Computer";
   }
 }
 
-// cAlculate winner based o choices
-function calWinner(humanChoice, computerChoice) {
-  //humanChoice & computerChoice
+// Event listener for choose buttons
+chooseButtons.addEventListener("click", (e) => {
+  const className = e.target.className;
+  if (
+    className === "rock-button" ||
+    className === "paper-button" ||
+    className === "scissor-button"
+  ) {
+    humanChoice = className;
+    rightDisplay.textContent = "You chose: " + calChoice(humanChoice);
+  } else {
+    rightDisplay.textContent = "Invalid Choice!";
+  }
+});
 
-  //If both have same choice display and replau the round
-  if (humanChoice == computerChoice) {
-    console.log("Both have same choices \n Play Again !");
+// Function to play a single round
+function playRound() {
+  if (!humanChoice) {
+    rightDisplay.textContent = "Please make a choice first!";
     return;
   }
 
-  //1] human ROck
-  if (humanChoice == 1) {
-    //Rock Paper
-    if (computerChoice == 2) {
-      //Computer wins
-      computerWinCount++;
-      return "Computer";
-      //paper & scissor
-    } else if (computerChoice == 3) {
-      //Human wins
-      humanWinCount++;
-      return "You";
-    }
-    //Paper
-  } else if (humanChoice == 2) {
-    //paper & rock
-    if (computerChoice == 1) {
-      //Human wins
-      humanWinCount++;
-      return "You";
-      //paper & scissor
-    } else if (computerChoice == 3) {
-      //Computer wins
-      computerWinCount++;
-      return "Computer";
-    }
-    //Scissor
-  } else {
-    //Scissor & Rock
-    if (computerChoice == 1) {
-      //Computer WIns
-      computerWinCount++;
-      return "Computer";
-      //scissor & paper
-    } else if (computerChoice == 2) {
-      //Humans Wins
-      humanWinCount++;
-      return "You";
-    }
-  }
-  {
-  }
+  const computerChoice = calComputerChoice();
+  const winner = calWinner(humanChoice, computerChoice);
+
+  // Display choices and winner
+  rightDisplay.innerHTML =
+    "Your choice: " +
+    calChoice(humanChoice) +
+    "<br>" +
+    "Computer choice: " +
+    calChoice(computerChoice) +
+    "<br>" +
+    "Winner: " +
+    (winner === "Tie" ? "It's a tie!" : winner);
+
+  // Update win counts
+  leftDisplay.innerHTML =
+    "Your Wins: " +
+    humanWinCount +
+    "<br>" +
+    "Computer Wins: " +
+    computerWinCount;
+
+  // Reset human choice for the next round
+  humanChoice = null;
 }
 
-//playGame function which will manage the whole game
-function playGame() {
+// Event listener for play button
+playButton.addEventListener("click", () => {
   playRound();
+});
 
-  //After playing 5 round let decide overall winner
-  console.log("This game is over !!");
-  console.log("And the winner of this game is!!");
+// Event listener for end button
+endButton.addEventListener("click", () => {
+  clearScreen();
   if (humanWinCount > computerWinCount) {
-    console.log("You !!");
+    rightDisplay.textContent = "Game Over! You are the overall winner!";
+  } else if (humanWinCount < computerWinCount) {
+    rightDisplay.textContent = "Game Over! Computer is the overall winner!";
   } else {
-    console.log("Computer !!");
+    rightDisplay.textContent = "Game Over! It's a tie!";
   }
-  let playChoice = prompt("Do You want to play again? \n 1]Yes 2]No");
-  if (playChoice == 1) {
-    playGame();
-  }
-}
+});
 
-//Lets call the function
+// Event listener for reset button
+resetButton.addEventListener("click", () => {
+  clearScreen();
+  humanWinCount = 0;
+  computerWinCount = 0;
+  rightDisplay.textContent = "Game reset. Let's start fresh!";
+});
