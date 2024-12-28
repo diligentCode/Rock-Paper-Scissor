@@ -51,11 +51,11 @@ function calChoice(choice) {
 //It has a single parameter that is round number
 function playRound() {
   //Welcome in the round
-  let humnaChoice = calHumanChoice();
+  let humanChoice = calHumanChoice();
   let computerChoice = calComputerChoice();
-  console.log("Your choice is:-" + calChoice(humnaChoice));
+  console.log("Your choice is:-" + calChoice(humanChoice));
   console.log("Computer choice is:-" + calChoice(computerChoice));
-  let winner = calWinner(humnaChoice, computerChoice);
+  let winner = calWinner(humanChoice, computerChoice);
 
   //Check if there is a winner or not
   if (winner == undefined) {
@@ -69,17 +69,17 @@ function playRound() {
 }
 
 // cAlculate winner based o choices
-function calWinner(humnaChoice, computerChoice) {
+function calWinner(humanChoice, computerChoice) {
   //humanChoice & computerChoice
 
   //If both have same choice display and replau the round
-  if (humnaChoice == computerChoice) {
+  if (humanChoice == computerChoice) {
     console.log("Both have same choices \n Play Again !");
     return;
   }
 
   //1] human ROck
-  if (humnaChoice == 1) {
+  if (humanChoice == 1) {
     //Rock Paper
     if (computerChoice == 2) {
       //Computer wins
@@ -92,7 +92,7 @@ function calWinner(humnaChoice, computerChoice) {
       return "You";
     }
     //Paper
-  } else if (humnaChoice == 2) {
+  } else if (humanChoice == 2) {
     //paper & rock
     if (computerChoice == 1) {
       //Human wins
