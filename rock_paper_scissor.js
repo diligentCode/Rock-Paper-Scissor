@@ -141,4 +141,3 @@ function playGame() {
 }
 
 //Lets call the function
-playGame();
